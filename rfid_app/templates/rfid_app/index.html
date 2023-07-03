@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>RFID Tags</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f5f5f5;
+        }
+        header {
+            background-color: #4CAF50;
+            color: #fff;
+            padding: 10px 0;
+            margin-bottom: 20px;
+        }
+        h1 {
+            color: #fff;
+            text-align: center;
+            margin: 0;
+        }
+        nav {
+            text-align: center;
+            margin: 20px 0;
+        }
+        nav a {
+            color: #333;
+            margin: 0 10px;
+            padding: 10px 20px;
+            background-color: #fff;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+        nav a:hover {
+            background-color: #ddd;
+        }
+        table {
+            width: 90%;
+            border-collapse: collapse;
+            margin: 0 auto;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 15px;
+            text-align: left;
+        }
+        th {
+            background-color: #333;
+            color: white;
+        }
+        tr:nth-child(even) {background-color: #f2f2f2;}
+        tr:hover {background-color: #ddd;}
+        a {
+            color: #fff;
+            text-decoration: none;
+            padding: 6px 12px;
+            border-radius: 4px;
+            transition: background-color 0.3s ease;
+        }
+        a.edit {
+            background-color: #4CAF50;
+        }
+        a.delete {
+            background-color: #f44336;
+        }
+        a.edit:hover {
+            background-color: #45a049;
+        }
+        a.delete:hover {
+            background-color: #da190b;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>RFID 便利店商品录入系统</h1>
+    </header>
+    <nav>
+        <a href="{% url 'rfid_app:search' %}">点击搜索商品</a>
+    </nav>
+    <table>
+        <tr>
+            <th>商品UID</th>
+            <th>商品名称</th>
+            <th>描述</th>
+            <th>价格</th>
+            <th>录入时间</th>
+            <th>编辑</th>
+            <th>删除</th>
+        </tr>
+        {% for tag in tags %}
+        <tr>
+            <td>{{ tag.uid }}</td>
+            <td>{{ tag.name }}</td>
+            <td>{{ tag.description }}</td>
+            <td>{{ tag.price }}</td>
+            <td>{{ tag.timestamp }}</td>
+            <td><a class="edit" href="{% url 'rfid_app:tag_detail' tag.uid %}">Edit</a></td>
+            <td><a class="delete" href="{% url 'rfid_app:delete_tag' tag.uid %}">Delete</a></td>
+        </tr>
+        {% endfor %}
+    </table>
+</body>
+
+</html>
